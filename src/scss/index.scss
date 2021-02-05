@@ -1,21 +1,192 @@
 @import '~mdb-ui-kit/css/mdb.min.css';
-.addWrapper {
+
+body {
+  background-color: #fafafa;
+}
+
+.container {
+  background-color: #fafafa;
+
+  .title{
+    text-align: center;
+    padding: 10px;
+  }
+
+  .addWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .addWrapper__input {
+    text-align: center;
+    width: 50%;
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid gray;
+    color: gray;
+  }
+
+  .addWrapper__select {
+    margin: 10px;
+  }
+  .openAddOption{
+    background-color: transparent;
+    border: none;
+  }
+
+  .add {
+    border: none;
+    background-color: rgb(175, 138, 17);
+    padding: 10px;
+    width: 200px;
+  }
+
+  .add:hover {
+    background-color: rgb(100, 85, 37);
+  }
+}
+
+.menu {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+
+  .sortWrapper {
+    padding: 10px;
+
+    .sort {
+      border: none;
+      background-color: rgb(67, 122, 78);
+      padding: 10px;
+      width: 200px;
+    }
+    .sort:hover{
+      background-color: rgb(46, 53, 47);
+      color: white;
+    }
+  }
+
+  .find {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .search {
+      align-self: center;
+      width: 20%;
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .searchButton {
+        border: none;
+        background-color: rgb(122, 94, 94);
+        padding: 10px;
+        margin: 10px;
+        width: 200px;
+      }
+      .searchButton:hover{
+        background-color: rgb(163, 142, 142);
+      }
+    }
+  }
+  .pdfBtn{
+    border: none;
+    background-color: rgb(133, 133, 133);
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+  }
+}
+
+.results {
+  display: flex;
+  justify-content: center;
   align-items: center;
   text-align: center;
+  margin-bottom: 20px;
+
+  .dragEndDrop {
+    background-color: #4caf50;
+    margin-right: 20px;
+    display: flex;
+
+    .empty {
+      height: 560px;
+      min-width: 560px;
+      margin: 10px;
+      background: white;
+      .fill {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .hold {
+        border: solid 5px #ccc;
+      }
+      .hovered {
+        background: #f4f4f4;
+        border-style: dashed;
+      }
+    }
+  }
 }
-.addWrapper__input {
-  width: 50%;
-  margin: 10px;
+
+.popup{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  width: 60%;
+  background-color: #af8f53;
+.popupInput{
+width: 50%;
+display: block;
+margin: 50px auto;
 }
-.addWrapper__select {
-  margin: 10px;
+.addOption{
+width: 20%;
+display: block;
+margin: 50px auto;
 }
+.close{
+width: 20%;
+display: block;
+margin: 50px auto;
+}
+
+}
+
+
+
+
 table,
 th,
 td {
   border: 1px solid black;
+}
+
+table {
+  margin: 0 auto;
+}
+.tableButton{
+  border: none;
+  background-color: #af8f53;
+  margin: 2px;
 }
 
 .form-popup {
@@ -28,24 +199,26 @@ td {
   z-index: 9;
 }
 
-
 .form-container {
   max-width: 300px;
   padding: 10px;
   background-color: white;
-  input {
+
+  .addWrapper__input {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
     border: none;
     background: #f1f1f1;
   }
+
   input:focus {
     background-color: #ddd;
     outline: none;
   }
 }
- .btn {
+
+.btn {
   background-color: #4caf50;
   color: white;
   padding: 16px 20px;
@@ -55,37 +228,16 @@ td {
   margin-bottom: 10px;
   opacity: 0.8;
 }
- .cancel {
+
+.cancel {
   background-color: red;
 }
 
-.btn:hover, .open-button:hover {
+.btn:hover,
+.open-button:hover {
   opacity: 1;
 }
 
-
-
-
-
-.fill {
-  position: relative;
-  cursor: pointer;
-}
-
-.hold {
-  border: solid 5px #ccc;
-}
-
-.empty {
-  display: inline-block;
-  height: 560px;
-  width: 560px;
-  margin: 10px;
-  border: solid 3px salmon;
-  background: white;
-}
-
-.hovered {
-  background: #f4f4f4;
-  border-style: dashed;
+.printTitle{
+  text-align: center;
 }

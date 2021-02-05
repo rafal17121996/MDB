@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>MDB Webpack Starter</title>
+  <title>MDB Rafał Szczurek</title>
   <!-- Favicon -->
   <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
   <!-- Font Awesome -->
@@ -21,14 +21,18 @@
 <body>
   <!-- Start your project here-->
   <div class="container">
+    <h1 class="title">Dodaj nową książkę:</h1>
     <form id="form" onsubmit="handleSubmit(event)">
       <div class="addWrapper">
-        <input id="title" class="addWrapper__input" oninput="handleChange(event)" type="text"
+        <input id="title" name="title" class="addWrapper__input" oninput="handleChange(event)" type="text"
           placeholder="Tytuł książki"> </input>
-        <input id="author" class="addWrapper__input" oninput="handleChange(event)" type="text"
+        <input id="author" name="author" class="addWrapper__input" oninput="handleChange(event)" type="text"
           placeholder="Autor książki">
         </input>
-        <label for="type">Rodzaj książki</label>
+        <div>
+          <label for="type">Rodzaj książki</label>
+          <input class="openAddOption" type="button" value="+" onclick="handleOpenAddOption()">
+        </div>
         <select class="addWrapper__select" name="type" id="type" onchange="handleChange(event)">
           <option value="kryminał">kryminał</option>
           <option value="sci-fi">sci-fi</option>
@@ -37,7 +41,6 @@
           <option value="dramat">dramat</option>
           <option value="nauki ścisłe">nauki ścisłe</option>
         </select>
-        <label for="rate"></label>
         <select class="addWrapper__select" name="rate" id="rate" onchange="handleChange(event)">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -45,68 +48,93 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-          <input type="text" name="addOption" id="addOption">
+        <div class="popup" id="popup">
+          <input class="popupInput" type="text" name="addOption" id="addOption">
           <input class="addOption" type="button" value="Dodaj nową kategorię" onclick="handleAddOption()">
-        
+          <input class="closeAddOption" type="button" onclick="handleCloseOption()" value="Zamknij"></input>
+        </div>
+
         <input class="add" type="submit" value="Dodaj"></input>
       </div>
-  </div>
-  </div>
-  </form>
-  <button class="sort" onclick="handleSortByTitle()">Sortuj według nazywy</button>
-  <button class="sort" onclick="handleSortByAuthor()">Sortuj według autora</button>
-  <button class="sort" onclick="handleSortByType()">Sortuj według typu</button>
-  <button class="sort" onclick="handleSortByRate()">Sortuj według ważności</button>
-  <br>
-  <input type="text" name="search" id="search">
-  <input class="searchTitle" type="button" value="Szukaj tytułu książki" onclick="handleFindTitle()">
-  <input class="searchAuthor" type="button" value="Szukaj autora" onclick="handleFindAuthor()">
-  <input class="searchType" type="button" value="Szukaj kategorii" onclick="handleFindType()">
-  <input class="searchRate" type="button" value="Szukaj piorytetu" onclick="handleFindRate()">
-
-
-  
-
-  <div class="empty">
-    <div class="fill" draggable="true"><div id="all"></div></div>
-  </div>
-
-  <div class="empty">
+    </form>
   </div>
 
 
-  <p>
-    <input type="button" value="Create PDF" 
-        id="btPrint" onclick="createPDF()" />
-</p>
+  <div class="menu">
+    <div class="sortWrapper">
+      <button class="sort" onclick="handleSortByTitle()">Sortuj według nazywy</button>
+      <button class="sort" onclick="handleSortByAuthor()">Sortuj według autora</button>
+      <button class="sort" onclick="handleSortByType()">Sortuj według typu</button>
+      <button class="sort" onclick="handleSortByRate()">Sortuj według ważności</button>
+    </div>
 
-  <div class="numberOfBooks">
-    <p>Liczba wszsykich ksążek:</p>
-    <p id="allBooks"></p>
-    <p>Liczba kryminałów:</p>
-    <p id="crimeBooks"></p>
-    <p>Liczba książek sci-fi:</p>
-    <p id="sci_fiBooks"></p>
-    <p>Liczba książek fantasy:</p>
-    <p id="fantasyBooks"></p>
-    <p>Liczba poezji:</p>
-    <p id="poetryBooks"></p>
-    <p>Liczba dramatów:</p>
-    <p id="dramaBooks"></p>
-    <p>Liczba książek ścisłych:</p>
-    <p id="scienceBooks"></p>
+    <div class="find">
+      <input class="search" placeholder="Czego szukasz?" type="text" name="search" id="search">
+      <div class="buttons">
+        <input class="searchButton" type="button" value="Szukaj tytułu książki" onclick="handleFindTitle()">
+        <input class="searchButton" type="button" value="Szukaj autora" onclick="handleFindAuthor()">
+        <input class="searchButton" type="button" value="Szukaj kategorii" onclick="handleFindType()">
+        <input class="searchButton" type="button" value="Szukaj piorytetu" onclick="handleFindRate()">
+        <input class="searchButton" type="button" value="Pokaż wszystkie" onclick="renderItems(books)">
+      </div>
+    </div>
+
+    <p>
+      <input type="button" class="pdfBtn" value="Drukuj zbiór książek" id="btPrint" onclick="createPDF()" />
+    </p>
   </div>
 
-  <!-- <div class="form-popup" id="myForm">
-    <form id="form" class="form-container" onsubmit="handleSubmitChange(event)">
+  <div class="results">
+
+    <div class="dragEndDrop">
+      <div class="empty">
+        <div id="fill" class="fill" draggable="true">
+          <div id="all"></div>
+        </div>
+      </div>
+      <div id="empty2" class="empty">
+        <p>Przeciągnij tutaj aby wydrukować</p>
+        <div id="allPrint"></div>
+      </div>
+    </div>
+
+    <div class="numberOfBooks">
+      <p>Liczba wszystkich ksążek:</p>
+      <p id="allBooks"></p>
+      <p>Liczba kryminałów:</p>
+      <p id="crimeBooks"></p>
+      <p>Liczba książek sci-fi:</p>
+      <p id="sci_fiBooks"></p>
+      <p>Liczba książek fantasy:</p>
+      <p id="fantasyBooks"></p>
+      <p>Liczba poezji:</p>
+      <p id="poetryBooks"></p>
+      <p>Liczba dramatów:</p>
+      <p id="dramaBooks"></p>
+      <p>Liczba książek ścisłych:</p>
+      <p id="scienceBooks"></p>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+  <div class="form-popup" id="myForm">
+    <form id="formEdit" class="form-container" onsubmit="handleSubmitChange(event)">
       <div class="addWrapper">
-        <input id="title" class="addWrapper__input" oninput="handleChange(event)" type="text"
+        <input id="titleEdit" name="title" class="addWrapper__input" onchange="handleChange(event)" type="text"
           placeholder="Tytuł książki"></input>
-        <input id="author" class="addWrapper__input" oninput="handleChange(event)" type="text"
+        <input id="authorEdit" name="author" class="addWrapper__input" onchange="handleChange(event)" type="text"
           placeholder="Autor książki">
         </input>
         <label for="type">Rodzaj książki</label>
-        <select class="addWrapper__select" name="type" id="type" onchange="handleChange(event)">
+        <select class="addWrapper__select" name="type" id="typeEdit" onchange="handleChange(event)">
           <option value="kryminał">kryminał</option>
           <option value="sci-fi">sci-fi</option>
           <option value="fantasy">fantasy</option>
@@ -115,7 +143,7 @@
           <option value="nauki ścisłe">nauki ścisłe</option>
         </select>
         <label for="rate"></label>
-        <select class="addWrapper__select" name="rate" id="rate" onchange="handleChange(event)">
+        <select class="addWrapper__select" name="rate" id="rateEdit" onchange="handleChange(event)">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -128,79 +156,40 @@
   </div>
   </div>
   </form>
-  </div> -->
+  </div>
   <!-- End your project here-->
 
 </body>
 <!-- Main js file -->
 <script type="text/javascript" src="js/index.min.js"></script>
 <script>
-  
+  if (JSON.parse(window.localStorage.getItem("books"))) {
+    var books = JSON.parse(window.localStorage.getItem("books"))
+  } else {
+    var books = []
+  }
 
-  var books = [];
-  books=JSON.parse(window.localStorage.getItem('books'));
   let book = {
-    type: "kryminał",
-    rate: "1",
-    id: books.length
+    title:"",
+        author:"",
+        type: "kryminał",
+        rate: "1",
+        id: Date.now()
   }
+  let printBooks = []
 
+  const renderItems = (items) => {
 
-  function createPDF() {
-        var sTable = document.getElementById('all').innerHTML;
+    printBooks = books
 
-        var style = "<style>";
-        style = style + "table {width: 100%;font: 17px Calibri;}";
-        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
-        style = style + "padding: 2px 3px;text-align: center;}";
-        style = style + "</style>";
+    const table = "<table><tr><th>Tytuł</th><th>Autor</th><th>Typ</th><th>Piorytet</th></tr>"
+    const tableEnd = "</table>"
 
-        // CREATE A WINDOW OBJECT.
-        var win = window.open('', '', 'height=700,width=700');
-
-        win.document.write('<html><head>');
-        win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
-        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
-        win.document.write('</head>');
-        win.document.write('<body>');
-        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
-        win.document.write('</body></html>');
-
-        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
-
-        win.print();    // PRINT THE CONTENTS.
-    }
-
-
-  const renderFindItmes = (items) => {
-    let table = "<table><tr><th>Tytuł</th><th>Autor</th><th>Typ</th><th>Piorytet</th></tr>"
-    let tableEnd = "</table>"
-    document.getElementById("allBooks").innerHTML = items.length
-    var app = document.getElementById("all")
-    app.innerHTML = table + items.map((item) => (
-      `<tr><td>${item.title}</td> <td>${item.author}</td> <td> ${item.type}</td> <td>${item.rate}</td> <td> <button id="${item.id}" onClick="handleDelete(this.id)" class="delete">Usuń</button> </td> <td> 
-        <button id="${item.id}" onClick="openEdit(this.id)" class="change">Zmień dane</button>
-        </td> </tr>`
-    )).join(" ") + tableEnd
-  }
-
-
-  const handleAddOption = () =>{
-  var newOption = document.getElementById('addOption').value
-  var x = document.getElementById("type");
-  var option = document.createElement("option");
-  option.text = newOption;
-  x.add(option);
-}
-
-  const renderItems = () => {
-    let table = "<table><tr><th>Tytuł</th><th>Autor</th><th>Typ</th><th>Piorytet</th></tr>"
-    let tableEnd = "</table>"
     document.getElementById("allBooks").innerHTML = books.length
-    var app = document.getElementById("all")
-    app.innerHTML = table + books.map((item) => (
-      `<tr><td>${item.title}</td> <td>${item.author}</td> <td> ${item.type}</td> <td>${item.rate}</td> <td> <button id="${item.id}" onClick="handleDelete(this.id)" class="delete">Usuń</button> </td> <td> 
-        <button id="${item.id}" onClick="openEdit(this.id)" class="change">Zmień dane</button>
+    let app = document.getElementById("all")
+    app.innerHTML = table + items.map((item) => (
+      `<tr><td>${item.title}</td> <td>${item.author}</td> <td> ${item.type}</td> <td>${item.rate}</td> <td> <button class="tableButton" id="${item.id}" onClick="handleDelete(this.id)" class="delete">Usuń</button> </td> <td> 
+        <button class="tableButton" id="${item.id}" onClick="openEdit(this.id)" class="change">Zmień dane</button>
         </td> </tr>`
     )).join(" ") + tableEnd
 
@@ -208,82 +197,108 @@
 
     document.getElementById("crimeBooks").innerHTML = books.filter(({
       type
-    }) => (type === 'kryminał')).length;
+    }) => (type === "kryminał")).length;
     document.getElementById("sci_fiBooks").innerHTML = books.filter(({
       type
-    }) => (type === 'sci-fi')).length;
+    }) => (type === "sci-fi")).length;
     document.getElementById("fantasyBooks").innerHTML = books.filter(({
       type
-    }) => (type === 'fantasy')).length;
+    }) => (type === "fantasy")).length;
     document.getElementById("poetryBooks").innerHTML = books.filter(({
       type
-    }) => (type === 'poezja')).length;
+    }) => (type === "poezja")).length;
     document.getElementById("dramaBooks").innerHTML = books.filter(({
       type
-    }) => (type === 'dramat')).length;
+    }) => (type === "dramat")).length;
     document.getElementById("scienceBooks").innerHTML = books.filter(({
       type
-    }) => (type === 'nauki ścisłe')).length;
+    }) => (type === "nauki ścisłe")).length;
   }
 
   const handleChange = (event) => {
     event.preventDefault()
-    let key = event.target.id
+    let key = event.target.name
     let value = event.target.value
     book[key] = value
   }
-  
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (book.title == undefined) {
+    if (book.title == "") {
       alert("Wprowadz tytuł ksiązki")
-    } else if (book.author == undefined) {
+    } else if (book.author == "") {
       alert("Wprowadz autora książki")
     } else {
       books.push(book)
       book = {
+        title:"",
+        author:"",
         type: "kryminał",
         rate: "1",
-        id: books.length
+        id: Date.now()
       }
-      var frm = document.getElementById('form')
+      let frm = document.getElementById("form")
       frm.reset();
-      renderItems()
+      renderItems(books)
     }
   }
-  
+
+
   const handleSubmitChange = (event) => {
     event.preventDefault()
   }
-  
+
   const handleDelete = (id) => {
     books = books.filter((el) => el.id != id);
-    renderItems()
+    renderItems(books)
   }
-  
-  const handleFindRate = (id) => {
-    var filterRate = document.getElementById('search').value
-    var filterBooks = books.filter((el) => el.rate == filterRate);
-    renderFindItmes(filterBooks)
 
+  const handleFindRate = (id) => {
+    let filterRate = document.getElementById("search").value
+    let filterBooks = books.filter((el) => el.rate == filterRate);
+    printBooks = filterBooks
+    if (filterBooks == 0) {
+      let app = document.getElementById("all")
+      app.innerHTML = '<h1 class="booksTitle"> Nie ma takich ksiażek w zbiorze </h1> '
+    } else {
+      renderItems(filterBooks)
+    }
   }
-  
+
   const handleFindTitle = (id) => {
-    var filterTitle = document.getElementById('search').value
-    var filterBooks = books.filter((el) => el.title == filterTitle);
-    renderFindItmes(filterBooks)
+    let filterTitle = document.getElementById("search").value
+    let filterBooks = books.filter((el) => el.title == filterTitle);
+    printBooks = filterBooks
+    if (filterBooks == 0) {
+      let app = document.getElementById("all")
+      app.innerHTML = '<h1 class="booksTitle"> Nie ma takich ksiażek w zbiorze </h1> '
+    } else {
+      renderItems(filterBooks)
+    }
   }
-  
+
   const handleFindAuthor = (id) => {
-    var filterAuthor = document.getElementById('search').value
-    var filterBooks = books.filter((el) => el.author == filterAuthor);
-    renderFindItmes(filterBooks)
+    let filterAuthor = document.getElementById("search").value
+    let filterBooks = books.filter((el) => el.author == filterAuthor);
+    printBooks = filterBooks
+    if (filterBooks == 0) {
+      let app = document.getElementById("all")
+      app.innerHTML = '<h1 class="booksTitle"> Nie ma takich ksiażek w zbiorze </h1> '
+    } else {
+      renderItems(filterBooks)
+    }
   }
-  
+
   const handleFindType = (id) => {
-    var filterType = document.getElementById('search').value
-    var filterBooks = books.filter((el) => el.type == filterType);
-    renderFindItmes(filterBooks)
+    let filterType = document.getElementById("search").value
+    let filterBooks = books.filter((el) => el.type == filterType);
+    printBooks = filterBooks
+    if (filterBooks == 0) {
+      let app = document.getElementById("all")
+      app.innerHTML = '<h1 class="booksTitle"> Nie ma takich ksiażek w zbiorze </h1> '
+    } else {
+      renderItems(filterBooks)
+    }
   }
 
   const handleSortByTitle = () => {
@@ -296,9 +311,9 @@
       }
       return 0;
     });
-    renderItems()
+    renderItems(books)
   }
-  
+
   const handleSortByAuthor = () => {
     books.sort((a, b) => {
       if (a.author < b.author) {
@@ -309,9 +324,9 @@
       }
       return 0;
     });
-    renderItems()
+    renderItems(books)
   }
-  
+
   const handleSortByType = () => {
     books.sort((a, b) => {
       if (a.type < b.type) {
@@ -322,9 +337,9 @@
       }
       return 0;
     });
-    renderItems()
+    renderItems(books)
   }
-  
+
   const handleSortByRate = () => {
     books.sort((a, b) => {
       if (a.rate < b.rate) {
@@ -335,94 +350,141 @@
       }
       return 0;
     });
-    renderItems()
-  }
-
-  const handleEdit = (id) => {
-    console.log(id)
-    books.forEach((el, index) => {
-      if (el.id == id) {
-        books[index] = book;
-        renderItems()
-        closeEdit()
-      }
-    });
+    renderItems(books)
   }
 
   const openEdit = (id) => {
+    let editBook = books.find(x => x.id == id)
+    book = books.find(x => x.id == id)
+    document.getElementById("titleEdit").value = editBook.title
+    document.getElementById("authorEdit").value = editBook.author
+    document.getElementById("typeEdit").value = editBook.type
+    document.getElementById("rateEdit").value = editBook.rate
     document.getElementById("myForm").style.display = "block";
     document.getElementById("editBtn").innerHTML =
       `<button type="submit"  onclick="handleEdit(${id})" class="btn">Zmień dane</button>`
   }
-  
+
   const closeEdit = () => {
     document.getElementById("myForm").style.display = "none";
+    document.getElementById("titleEdit").value = ""
+    document.getElementById("authorEdit").value = ""
   }
 
-  renderItems()
+  const handleEdit = (id) => {
+    if (document.getElementById("titleEdit").value == "") {
+      alert("Wprowadz tytuł ksiązki")
+    } else if (document.getElementById("authorEdit").value == "") {
+      alert("Wprowadz autora książki")
+    } else {
+      books.forEach((el, index) => {
+        if (el.id == id) {
+          books[index] = book;
+
+        }
+        renderItems(books)
+        closeEdit()
+      })
+    };
+  }
+
+  const handleOpenAddOption = () => {
+    document.getElementById("popup").style.display = "block";
+  }
+
+  const handleCloseOption = () => {
+    document.getElementById("popup").style.display = "none";
+  }
+
+  const handleAddOption = () => {
+    let newOption = document.getElementById("addOption").value
+    let x = document.getElementById("type");
+    let option = document.createElement("option");
+    option.text = newOption;
+    x.add(option);
+    document.getElementById("popup").style.display = "none";
+  }
+
+  //Drag and Drop
+  const fill = document.getElementById("fill");
+  const empty = document.getElementById("empty2");
+
+
+
+  const dragStart = () => { 
+    this.className += " hold";
+    setTimeout(() => (this.className = "invisible"), 0);
+  }
+
+
+
+  const dragEnd = () => {
+    this.className = "fill";
+  }
+
+  const dragOver = (e) => {
+    e.preventDefault();
+  }
+
+  const dragEnter = (e) => {
+    e.preventDefault();
+    this.className += " hovered";
+  }
+
+  const dragLeave = () => {
+    this.className = "empty";
+  }
+
+  const dragDrop = () => {
+    createPDF()
+  }
+  fill.addEventListener("dragstart", dragStart);
+  fill.addEventListener("dragend", dragEnd);
+
+
+  empty.addEventListener("dragover", dragOver);
+  empty.addEventListener("dragenter", dragEnter);
+  empty.addEventListener("dragleave", dragLeave);
+  empty.addEventListener("drop", dragDrop);
 
 
 
 
+  
+  const createPDF = () => {
+    const table =
+      '<h1 class="printTitle">Wersja do druku</h1><table><tr><th>Tytuł</th><th>Autor</th><th>Typ</th><th>Piorytet</th></tr>'
+    const tableEnd = "</table>"
+    document.getElementById("allBooks").innerHTML = books.length
+    let app = document.getElementById("allPrint")
+    app.innerHTML = table + printBooks.map((item) => (
+      `<tr><td>${item.title}</td> <td>${item.author}</td> <td> ${item.type}</td> <td>${item.rate}</td></tr>`
+    )).join(" ") + tableEnd
 
 
+    let sTable = document.getElementById("allPrint").innerHTML;
 
-const fill = document.querySelector('.fill');
-const empties = document.querySelectorAll('.empty');
+    let style = "<style>";
+    style = style + "table {width: 100%;font: 17px Calibri;}";
+    style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+    style = style + "padding: 2px 3px;text-align: center;}";
+    style = style + "</style>";
 
-// Fill listeners
-fill.addEventListener('dragstart', dragStart);
-fill.addEventListener('dragend', dragEnd);
+    let win = window.open("", "", "height=700,width=700");
 
-// Loop through empty boxes and add listeners
-for (const empty of empties) {
-  empty.addEventListener('dragover', dragOver);
-  empty.addEventListener('dragenter', dragEnter);
-  empty.addEventListener('dragleave', dragLeave);
-  empty.addEventListener('drop', dragDrop);
-}
+    win.document.write("<html><head>");
+    win.document.write(style);
+    win.document.write("</head>");
+    win.document.write("<body>");
+    win.document.write(sTable);
+    win.document.write("</body></html>");
 
-// Drag Functions
+    win.document.close();
 
-function dragStart() {
-  this.className += ' hold';
-  setTimeout(() => (this.className = 'invisible'), 0);
-}
-
-function dragEnd() {
-  this.className = 'fill';
-}
-
-function dragOver(e) {
-  e.preventDefault();
-}
-
-function dragEnter(e) {
-  e.preventDefault();
-  this.className += ' hovered';
-}
-
-function dragLeave() {
-  this.className = 'empty';
-}
-
-function dragDrop() {
-  this.className = 'empty';
-  renderItems()
-  this.append(fill);
-}
-
-
-
-
-
-
-
-
-
-
-
-
+    win.print();
+  }
+  //First render items
+  renderItems(books)
 </script>
 <!-- Custom scripts -->
 <script type="text/javascript"></script>
