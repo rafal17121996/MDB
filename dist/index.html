@@ -264,7 +264,6 @@
   const handleDelete = (id) => {
     books = books.filter((el) => el.id != id);
     currentBooks = currentBooks.filter((el) => el.id != id);
-    console.log(currentBooks)
     renderItems(currentBooks)
   }
 
@@ -275,7 +274,7 @@
     if(!filterTitle){
       renderItems(books)
     }else{
-      let filterBooks = books.filter((el) => el.title == filterTitle);
+      let filterBooks = books.filter((el) => el.title.toUpperCase() == filterTitle.toUpperCase());
     currentBooks = filterBooks
     if (filterBooks == 0) {
       let app = document.getElementById("all")
@@ -292,7 +291,7 @@
     if(!filterAuthor){
       renderItems(books)
     }else{
-    let filterBooks = books.filter((el) => el.author == filterAuthor);
+    let filterBooks = books.filter((el) => el.author.toUpperCase() == filterAuthor.toUpperCase());
     currentBooks = filterBooks
     if (filterBooks == 0) {
       let app = document.getElementById("all")
@@ -308,7 +307,7 @@
     if(!filterType){
       renderItems(books)
     }else{
-    let filterBooks = books.filter((el) => el.type == filterType);
+    let filterBooks = books.filter((el) => el.type.toUpperCase() == filterType.toUpperCase());
     currentBooks = filterBooks
     if (filterBooks == 0) {
       let app = document.getElementById("all")
@@ -326,7 +325,6 @@
     }else{
     let filterBooks = books.filter((el) => el.rate == filterRate);
     currentBooks = filterBooks
-    console.log(currentBooks)
     if (filterBooks == 0) {
       let app = document.getElementById("all")
       app.innerHTML = '<h1 class="booksTitle"> Nie ma takich ksiażek w zbiorze </h1> '
@@ -432,7 +430,6 @@
         if (el.id == id) {
           books[index] = book;
         }
-        console.log(books)
       })
       renderItems(books)
       closeEdit()

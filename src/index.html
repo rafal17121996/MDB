@@ -274,7 +274,7 @@
     if(!filterTitle){
       renderItems(books)
     }else{
-      let filterBooks = books.filter((el) => el.title == filterTitle);
+      let filterBooks = books.filter((el) => el.title.toUpperCase() == filterTitle.toUpperCase());
     currentBooks = filterBooks
     if (filterBooks == 0) {
       let app = document.getElementById("all")
@@ -291,7 +291,7 @@
     if(!filterAuthor){
       renderItems(books)
     }else{
-    let filterBooks = books.filter((el) => el.author == filterAuthor);
+    let filterBooks = books.filter((el) => el.author.toUpperCase() == filterAuthor.toUpperCase());
     currentBooks = filterBooks
     if (filterBooks == 0) {
       let app = document.getElementById("all")
@@ -307,7 +307,7 @@
     if(!filterType){
       renderItems(books)
     }else{
-    let filterBooks = books.filter((el) => el.type == filterType);
+    let filterBooks = books.filter((el) => el.type.toUpperCase() == filterType.toUpperCase());
     currentBooks = filterBooks
     if (filterBooks == 0) {
       let app = document.getElementById("all")
