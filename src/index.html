@@ -86,7 +86,7 @@
           </div>
         </div>
         <div id="emptyPrint" class="empty">
-          <p>Przeciągnij tutaj, aby wydrukować</p>
+          <p style="padding:10px">Przeciągnij tutaj, aby wydrukować</p>
           <div id="allPrint"></div>
         </div>
       </div>
@@ -184,7 +184,7 @@
     let app = document.getElementById("all")
 
     if (items == 0) {
-      app.innerHTML = '<h1 class="booksTitle">Dodaj książkę do zbioru</h1>'
+      app.innerHTML = '<h1 style="padding:10px">Dodaj książkę do zbioru</h1>'
     } else {
       const table =
         '<h1 class="booksTitle">Zbiór książek:</h1><table class="tabel"><tr><th onclick="handleSortByTitle()" >Tytuł<i  class="fas fa-caret-down"></i></th><th onclick="handleSortByAuthor()">Autor <i  class="fas fa-caret-down"></th><th onclick="handleSortByType()">Typ <i  class="fas fa-caret-down"></th><th onclick="handleSortByRate()">Priorytet <i  class="fas fa-caret-down"></th></tr>'
