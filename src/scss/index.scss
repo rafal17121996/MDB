@@ -1,15 +1,34 @@
 @import '~mdb-ui-kit/css/mdb.min.css';
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 body {
   background-color: #fafafa;
 }
 
 .container {
-  background-color: #fafafa;
+  .addContainer {
+    margin-top: 20px;
+    background-color: #76a4d8;
+    padding: 10px;
+    border-radius: 50px;
+    color: black;
+    box-shadow: 0 6px 20px rgba(43, 50, 63, 0.6);
+    -webkit-filter: drop-shadow(0 6px 20px rgba(43, 50, 63, 0.6));
+    filter: drop-shadow(0 6px 20px rgba(43, 50, 63, 0.6));
+    width: 100%;
+  }
 
-  .title{
+  .title {
     text-align: center;
     padding: 10px;
+    color: rgb(56, 56, 56);
+    text-shadow: 1px 1px rgb(212, 212, 212);
   }
 
   .addWrapper {
@@ -17,6 +36,17 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+
+    select {
+      width: 200px;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 1.25rem;
+      cursor: pointer;
+      line-height: 1.1;
+      background-color: rgb(209, 209, 209);
+      text-align-last: center;
+    }
   }
 
   .addWrapper__input {
@@ -28,14 +58,15 @@ body {
     background-color: transparent;
     border: none;
     outline: none;
-    border-bottom: 1px solid gray;
-    color: gray;
+    border-bottom: 1px solid rgb(46, 46, 46);
+
   }
 
   .addWrapper__select {
     margin: 10px;
   }
-  .openAddOption{
+
+  .openAddOption {
     background-color: transparent;
     border: none;
   }
@@ -45,6 +76,7 @@ body {
     background-color: rgb(175, 138, 17);
     padding: 10px;
     width: 200px;
+    border-radius: 10px;
   }
 
   .add:hover {
@@ -52,61 +84,59 @@ body {
   }
 }
 
-.menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.find {
+  max-width: 1300px;
+  margin: 40px auto;
+  background-color: #5d82ac;
+  padding: 20px;
+  border-radius: 50px;
+  box-shadow: 0 6px 20px rgba(43, 50, 63, 0.6);
+  -webkit-filter: drop-shadow(0 6px 20px rgba(43, 50, 63, 0.6));
+  filter: drop-shadow(0 6px 20px rgba(43, 50, 63, 0.6));
 
-  .sortWrapper {
+  .search {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
     padding: 10px;
-
-    .sort {
-      border: none;
-      background-color: rgb(67, 122, 78);
-      padding: 10px;
-      width: 200px;
-    }
-    .sort:hover{
-      background-color: rgb(46, 53, 47);
-      color: white;
-    }
-  }
-
-  .find {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-
-    .search {
-      align-self: center;
-      width: 20%;
-      text-align: center;
-    }
-
-    .buttons {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .searchButton {
-        border: none;
-        background-color: rgb(122, 94, 94);
-        padding: 10px;
-        margin: 10px;
-        width: 200px;
-      }
-      .searchButton:hover{
-        background-color: rgb(163, 142, 142);
-      }
-    }
-  }
-  .pdfBtn{
+    border-radius: 5px;
     border: none;
-    background-color: rgb(133, 133, 133);
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
+    background-color: rgb(212, 212, 212);
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+
+    .searchButton {
+      border: 2px solid black;
+      border-radius: 5px;
+      background-color: rgb(175, 138, 17);
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+
+      @media screen and (max-width: 1500px) {
+        width: 160px;
+        font-size: 0.9rem;
+      }
+
+      @media screen and (max-width: 1000px) {
+        width: 100px;
+        font-size: 0.5rem;
+      }
+      @media screen and (max-width: 600px) {
+        width: 70px;
+        font-size: 0.4rem;
+      }
+    }
+
+    .searchButton:hover {
+      background-color: rgb(163, 142, 142);
+    }
   }
 }
 
@@ -117,16 +147,46 @@ body {
   text-align: center;
   margin-bottom: 20px;
 
+  @media screen and (max-width: 1600px) {
+    flex-direction: column;
+  }
+
   .dragEndDrop {
     background-color: #4caf50;
     margin-right: 20px;
     display: flex;
+    border-radius: 40px;
+    box-shadow: 0 6px 20px rgba(43, 50, 63, 0.6);
+    -webkit-filter: drop-shadow(0 6px 20px rgba(43, 50, 63, 0.6));
+    filter: drop-shadow(0 6px 20px rgba(43, 50, 63, 0.6));
+
+    @media screen and (max-width: 1500px) {
+      flex-direction: column;
+    }
 
     .empty {
-      height: 560px;
-      min-width: 560px;
+      min-height: 700px;
+      width: 700px;
       margin: 10px;
       background: white;
+      border-radius: 30px;
+
+      @media screen and (max-width: 1500px) {
+        width: 900px;
+      }
+      @media screen and (max-width: 1000px) {
+        width: 800px;
+      }
+      @media screen and (max-width: 800px) {
+        width: 600px;
+      }
+      @media screen and (max-width: 600px) {
+        width: 500px;
+      }
+      @media screen and (max-width: 400px) {
+        width: 300px;
+      }
+
       .fill {
         position: relative;
         cursor: pointer;
@@ -135,15 +195,55 @@ body {
       .hold {
         border: solid 5px #ccc;
       }
+
       .hovered {
         background: #f4f4f4;
         border-style: dashed;
       }
     }
   }
+
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+
+  table {
+    margin: 100px 40px;
+    @media screen and (max-width: 600px) {
+      font-size: 0.8rem;;
+    }
+  }
+
+  .tableButton {
+    border: none;
+    background-color: #a19d94;
+    margin: 2px;
+    padding: 6px;
+    border-radius: 3px;
+  }
+
+  .sort {
+    border: none;
+    background-color: transparent;
+    color: grey;
+    padding: 2px;
+  }
+
+  .numberOfBooks {
+    min-width: 200px;
+
+    @media screen and (max-width: 1500px) {
+      margin-top: 40px;
+    }
+  }
 }
 
-.popup{
+.popup {
   display: none;
   position: fixed;
   top: 50%;
@@ -153,40 +253,38 @@ body {
   z-index: 9;
   width: 60%;
   background-color: #af8f53;
-.popupInput{
-width: 50%;
-display: block;
-margin: 50px auto;
-}
-.addOption{
-width: 20%;
-display: block;
-margin: 50px auto;
-}
-.close{
-width: 20%;
-display: block;
-margin: 50px auto;
-}
 
-}
+  .addOptionTitle {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 10px;
+  }
 
+  .popupInput {
+    width: 50%;
+    display: block;
+    margin: 50px auto;
+    text-align: center;
+  }
 
+  .addOption {
+    min-width: 20%;
+    display: block;
+    margin: 50px auto;
+    background-color: grey;
+    border: none;
+    padding: 10px;
+  }
 
+  .closeAddOption {
+    width: 20%;
+    display: block;
+    margin: 50px auto;
+    background-color: grey;
+    border: none;
+    padding: 10px;
+  }
 
-table,
-th,
-td {
-  border: 1px solid black;
-}
-
-table {
-  margin: 0 auto;
-}
-.tableButton{
-  border: none;
-  background-color: #af8f53;
-  margin: 2px;
 }
 
 .form-popup {
@@ -196,11 +294,13 @@ table {
   left: 50%;
   transform: translate(-50%, -50%);
   border: 3px solid #f1f1f1;
+  border-radius: 15px;
   z-index: 9;
 }
 
 .form-container {
   max-width: 300px;
+  border-radius: 15px;
   padding: 10px;
   background-color: white;
 
@@ -216,10 +316,15 @@ table {
     background-color: #ddd;
     outline: none;
   }
+
+  .selectWrapper {
+    text-align: center;
+  }
 }
 
 .btn {
   background-color: #4caf50;
+  font-size: 1.2rem;
   color: white;
   padding: 16px 20px;
   border: none;
@@ -238,6 +343,12 @@ table {
   opacity: 1;
 }
 
-.printTitle{
+.printTitle {
   text-align: center;
+}
+
+.printTable {
+  display: flex;
+  align-self: center;
+  justify-self: center;
 }
